@@ -123,8 +123,8 @@ class WizardPage extends StatelessWidget {
                   children: [
                     InputPhoto(
                       label: 'Foto Selfie',
-                      child: state.selfieImage != null
-                          ? Image.file(state.selfieImage!)
+                      imageProvider: state.selfieImage != null
+                          ? Image.file(state.selfieImage!).image
                           : null,
                       onTap: () {
                         context.read<WizardCubit>().captureSelfieImage();
@@ -137,15 +137,15 @@ class WizardPage extends StatelessWidget {
                         context.read<WizardCubit>().captureIdentityImage();
                       },
                       identityNum: state.identityNum,
-                      child: state.identityImage != null
-                          ? Image.file(state.identityImage!)
+                      imageProvider: state.identityImage != null
+                          ? Image.file(state.identityImage!).image
                           : null,
                     ),
                     SizedBox(height: 15.h),
                     InputPhoto(
                       label: 'Foto Bebas',
-                      child: state.bebasImage != null
-                          ? Image.file(state.bebasImage!)
+                      imageProvider: state.bebasImage != null
+                          ? Image.file(state.bebasImage!).image
                           : null,
                       onTap: () {
                         context.read<WizardCubit>().captureBebasImage();

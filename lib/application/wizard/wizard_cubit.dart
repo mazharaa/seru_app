@@ -11,11 +11,15 @@ part 'wizard_state.dart';
 part 'wizard_cubit.freezed.dart';
 
 class WizardCubit extends Cubit<WizardState> {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final biodataController = TextEditingController();
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+  late TextEditingController biodataController;
 
-  WizardCubit() : super(WizardState.initial());
+  WizardCubit() : super(WizardState.initial()) {
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    biodataController = TextEditingController();
+  }
 
   void onStepCancel(int index) {
     if (index > 0) {
@@ -36,19 +40,17 @@ class WizardCubit extends Cubit<WizardState> {
   }
 
   Future<void> captureSelfieImage() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.camera,
-      preferredCameraDevice: CameraDevice.front,
-    );
+    if (state.selfieImage == null) {
+      final pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        preferredCameraDevice: CameraDevice.front,
+      );
 
-    if (pickedFile != null) {
-      emit(state.unmodified.copyWith(
-        selfieImage: File(pickedFile.path),
-      ));
-    } else {
-      emit(state.unmodified.copyWith(
-        selfieImage: null,
-      ));
+      if (pickedFile != null) {
+        emit(state.unmodified.copyWith(
+          selfieImage: File(pickedFile.path),
+        ));
+      }
     }
   }
 
